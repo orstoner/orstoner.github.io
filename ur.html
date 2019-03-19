@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Under-Reporting of Count Data</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Oliver Stoner</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Research
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="overview.html">Overview</a>
+    </li>
+    <li>
+      <a href="delay.html">
+        <span class="fa fa-stopwatch"></span>
+         
+        Delayed Reporting
+      </a>
+    </li>
+    <li>
+      <a href="hap.html">
+        <span class="fa fa-fire"></span>
+         
+        Household Air Pollution
+      </a>
+    </li>
+    <li>
+      <a href="ur.html">
+        <span class="fa fa-less-than-equal"></span>
+         
+        Under Reporting
+      </a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="contact.html">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+    Contact
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/orstoner">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Under-Reporting of Count Data</h1>
+
+</div>
+
+
+<p>In 2016 I undertook a 10 week research project funded by the EPSRC to investigate potential under-reporting of tornados in areas of low population density. The idea is that, as observations rely on someone witnessing a tornado or discovering damage one has caused, in places with</p>
+<p>Still an undergraduate, I began experimenting with Generalized Additive Models, including smooth functions to capture the effect of location, terrain and population density. My method for correcting the under-reporting was then to predict from the model at the maximum value for population density in the data.</p>
+<hr />
+<div id="hierarchical-framework" class="section level2">
+<h2>Hierarchical Framework</h2>
+<p>In 2017, now investigating under-reporting of tuberculosis in Brazil, I came up with a general hierarchical framework for correcting under-reporting in count data. Set in a Bayesian setting, the framework estimates the under-reporting mechanism and provides predictive inference for the unobserved true counts, both of which may depend on covariates.</p>
+<p><span class="math display">\[ z_i \mid y_i \sim \mbox{Binomial}(\pi_i,y_i)\]</span> <span class="math display">\[ \log \left( \frac{\pi_i}{1-\pi_i} \right) = \beta_0 + \sum_{j=1}^J \beta_j w_{i,j} \]</span> <span class="math display">\[ y_i \sim \mbox{Poisson}(\lambda_i) \]</span></p>
+<p><span class="math display">\[ \log(\lambda_i) = \alpha_0 + \sum_{k=1}^K \alpha_k x_{i,k} \]</span></p>
+<p>Where covariates <span class="math inline">\(\boldsymbol{x}\)</span> are related to the true count and <span class="math inline">\(\boldsymbol{w}\)</span> are related to the under-reporting mechanism. The probability <span class="math inline">\(\pi_i \in (0,1)\)</span> is interpreted as the reporting rate and <span class="math inline">\(\lambda_i\)</span> is interpreted as the mean rate of the true count. Both models can also include simple or spatio-temporally structured random effects, such as the spatial effect (shown below) we include in our tuberculosis model to capture correlation in tuberculosis incidence between adjacent regions.</p>
+<div class="figure">
+<embed src="combined_spatial.pdf" style="width:100.0%" />
+<p class="caption">Image Title</p>
+</div>
+<p>The full presentation of this framework, including both a thorough investigation into its robustness and limitations and an interesting application to Brazilian tuberculosis data, has now been published open access in:</p>
+<p>Oliver Stoner, Theo Economou &amp; Gabriela Drummond Marques Da Silva (2019) A Hierarchical Framework for Correcting Under-Reporting in Count Data, Journal of the American Statistical Association, DOI: <a href="https://doi.org/10.1080/01621459.2019.1573732" class="uri">https://doi.org/10.1080/01621459.2019.1573732</a></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
